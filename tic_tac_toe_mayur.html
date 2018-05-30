@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>tic tac toe</title>
+	<style >
+		.container{
+			border:8px solid 	rgba(230, 230, 230,0.6);
+			width:480px;
+			height:480px;
+
+		}
+        .square{
+        	width:150px;
+        	height:150px;
+        	border:5px solid ;
+        	margin:0;
+        	font-size: 100px;
+        	text-align: center;
+        	background-color: white;
+        	background-image: url("picsu.jpg");
+        	background-repeat: repeat;
+        	background-position: left top;
+            border-image: url("border.jpg") 20 round;
+            border-image-width: 10px;
+        }
+        .main_container {
+          margin-left: 438px;
+          float: left;
+          margin-right: 100px;
+        }
+        .flex-container{
+        	display:flex;
+        }
+        .flex-column{
+        	flex-direction: column;
+        }
+        .flex-wrap{
+        	flex-wrap:wrap;
+        }
+        #btn,#btn2{
+        	font-size: 35px;
+        	width:200px;
+        	height:80px;
+        	text-align: center;
+        	font-weight: bold;
+        	background-image: url("btn.jpg");
+        	background-repeat: repeat;
+        	color:#ffff33; 
+        	border: 3px solid ;
+          margin-bottom: 20px;
+            border-image: url("image.jpg") 25 round;
+            border-image-width: 10px;
+            border-radius: 12px;
+        }
+        #btn:hover{
+               font-size: 40px;
+               color:brown;
+            width:220px;
+            height:100px;
+           
+        }
+        #btn2:hover{
+               font-size: 40px;
+               color:brown;
+            width:220px;
+            height:100px;
+           
+        }
+        #cola ,#cola2{
+          font-size: 40px;
+               color:brown;
+               background-color: floralwhite;
+            overflow: auto;
+            background-image: url("white.jpg") ;
+            
+
+        }
+        body{
+        	background-image: url("tile.jpg");
+        	background-position: left top;
+        	background-repeat: repeat;
+        	 font-family: 'Open Sans',sans-serif;
+              
+        }
+
+        .square:hover{
+        	background-color: #8db600;
+
+        }
+
+       
+        #subcon{
+        	font-size: 60px;
+        	text-align: center;
+        	color:red;
+        	animation-name: discolight;
+        	animation-duration: 4s;
+        	animation-iteration-count: 60;
+        	border-radius: 8px;
+        	margin-bottom: 10px;
+        	background-color: white;
+        	border: 2px solid  floralwhite;
+
+        	box-shadow:14px 14px 15px rgba(0, 0, 0,0.6);
+
+        	 
+        }
+         @keyframes discolight{
+      	0% {color:red; background-color: #F5FF00;}
+      	25% {color: yellow; background-color: #FF2300; }
+      	50% {color: black; background-color:yellow;}
+      	75% {color: blue; background-color: #00F700;}
+      	100% {color:#09568d; background-color: #F5FF00;}
+      }
+        </style>
+        <script>
+        	let  player1 = "X";
+        	let player2 = "O";
+        	var array= [ [0,0,0], [0,0,0] , [0,0,0] ];
+        	var i,j,num=0;
+            var grid =[ [8,3,4], [1,5,9], [6,7,2]];
+            var plyr1 = [];
+            var plyr2 = [];
+           var plyr ;
+           console.log("grid[0][]= [ [8,3,4] ]");
+           console.log("grid[1][]= [ [1,5,9] ]");
+           console.log("grid[2][]= [ [6,7,2] ]");
+             function prmpt(){ plyr = prompt("choose first player 'X'=1 'O'=2");}
+        	
+            function action(x,y){
+
+            	
+            	if(array[x][y]>0){alert("Don't cheat or I'll give you shock");}
+            	else{
+                    
+            		if(plyr == 1){
+                        num++;
+            			array[x][y]=1;
+            			document.getElementById("box"+x+y).style.color="#30267a";
+            			document.getElementById("box"+x+y).innerHTML = "X";
+            			plyr = 2;
+                         if(num >4){check();}                 
+
+            		}
+            		else{
+                        num++;
+            			array[x][y]=2;
+            			document.getElementById("box"+x+y).style.color="#00443f";
+            			document.getElementById("box"+x+y).innerHTML = "O";
+            			plyr = 1;
+                          if(num >4){check();}
+                       
+            		}
+            	}
+
+            }
+            function reset(){
+                
+            	for(i=0;i<3;i=i+1){
+                    array[i]=[];
+            		for(j=0;j<3;j++){
+            			array[i][j]=0;
+            			document.getElementById("box"+i+j).innerHTML ="&nbsp;";
+            		}
+            	}
+            	plyr=1;
+            }
+            function check(){
+                 for(var k=0;k<3;k++){
+                    for(var l=0;l<3;l++){
+                         if(array[k][l] == 1){
+                            plyr1.push(grid[l][k]);
+                           
+                         }
+                         else if(array[k][l] == 2){
+                            plyr2.push(grid[l][k]);
+                            
+                         }
+                    }
+                 } 
+                  
+                 plyr1.sort(function(a,b){return a-b});
+                 console.log("plyr1="+plyr1);
+                final= romli(plyr1);
+                if(final == 0){
+                  document.getElementById("cola").innerHTML ="PLAYER 1 WINS!!";
+                    document.getElementById("cola2").innerHTML ="Refresh page";
+                   reset(); }
+                plyr1=[];
+                   
+                  
+                 plyr2.sort(function(a,b){return a-b});
+                  console.log("plyr2="+plyr2);
+                 final=romli(plyr2);
+                   if(final == 0){
+                  document.getElementById("cola").innerHTML ="PLAYER 2 WINS!!";
+                    document.getElementById("cola2").innerHTML ="Refresh page";
+                   reset(); }
+                  plyr2=[];
+                  
+            }
+             
+             function romli(ply){
+           var i,j,k;
+          for(i=0;i<ply.length;i++){
+            j=i+1;
+            k=ply.length -1;
+            while(j<k){
+                if(ply[i]+ply[j]+ply[k]  == 15)
+                    {console.log(ply+" wins!!!!..");
+                     return 0;
+                     break;  
+                    }
+                else
+                    if(ply[i]+ply[j]+ply[k] < 15 ){j++;}
+                else{k--;}
+                        
+           }
+        }
+    }
+        </script>
+</head>
+<body>
+	<div id="subcon">TIC TAC TOE GAME</div>
+	<div class="main_container "> 
+  <div class="container  flex-container flex-column flex-wrap">
+   
+   	<div class="square" id="box00" onclick="action(0,0)" ></div>
+   	<div class="square" id="box01" onclick="action(0,1)"></div>
+   	<div class="square" id="box02" onclick="action(0,2)"></div>
+   	<div class="square" id="box10" onclick="action(1,0)"></div>
+   	<div class="square" id="box11" onclick="action(1,1)"></div>
+    <div class="square" id="box12" onclick="action(1,2)"></div>
+   	<div class="square" id="box20" onclick="action(2,0)"></div>
+   	<div class="square" id="box21" onclick="action(2,1)"></div>
+   	<div class="square" id="box22" onclick="action(2,2)"></div>
+
+   	
+   </div>
+   
+   </div>
+   <button  id="btn" onclick="reset()">RESET</button>
+   <button id="btn2" onclick="prmpt()">START</button>
+   <div id="cola"></div>
+   <div id="cola2"></div>
+
+</body>
+</html>
